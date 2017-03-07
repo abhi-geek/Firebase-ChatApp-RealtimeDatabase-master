@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "294968808371",
+    "firebase_url": "https://mychatapp-f2f18.firebaseio.com",
+    "project_id": "mychatapp-f2f18",
+    "storage_bucket": "mychatapp-f2f18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294968808371:android:078eb051c8279d3b",
+        "android_client_info": {
+          "package_name": "com.example.shaunkollannur.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "294968808371-oki8eo4pd81qjlt3okrrr4tfovj9v9up.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_sFDCdxWHEof3yo3xpXgSNbAZFxNWiQE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294968808371:android:90e5088fff923640",
+        "android_client_info": {
+          "package_name": "app.real_time_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "294968808371-oki8eo4pd81qjlt3okrrr4tfovj9v9up.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_sFDCdxWHEof3yo3xpXgSNbAZFxNWiQE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
