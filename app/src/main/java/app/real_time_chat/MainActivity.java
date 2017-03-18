@@ -1,9 +1,8 @@
 package app.real_time_chat;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,7 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,17 +23,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+
 public class MainActivity extends AppCompatActivity {
 
+    public static final int RC_SIGN_IN=1;
+    private static final String ANONYMOUS = "";
     private Button  add_room;
     private EditText room_name;
-
+    private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseAuth.AuthStateListener authStateListener;
     private ListView listView;
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> list_of_rooms = new ArrayList<>();
@@ -41,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseDatabase=FirebaseDatabase.getInstance();
         add_room = (Button) findViewById(R.id.btn_add_room);
         room_name = (EditText) findViewById(R.id.room_name_edittext);
         listView = (ListView) findViewById(R.id.listView);
@@ -50,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         listView.setAdapter(arrayAdapter);
 
-        request_user_name();
+        //request_user_name();
 
         add_room.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -97,9 +107,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // already signed in
+                    Toast.makeText(MainActivity.this,user.getDisplayName().toString(),Toast.LENGTH_SHORT).show();
+                    onSignedInInitialize(user.getDisplayName());
+                } else {
+                    // not signed in
+                    onSignedOutCleanup();
+                    startActivityForResult(
+                            AuthUI.getInstance()
+                                    .createSignInIntentBuilder()
+                                    .setProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                            new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()
+                                            ))
+                                    .setIsSmartLockEnabled(false)
+                                    .build(),
+                            RC_SIGN_IN);
+
+                }
+            }
+        };
+
     }
 
-    private void request_user_name() {
+    /*private void request_user_name() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter name:");
 
@@ -122,7 +158,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         builder.show();
+    }*/
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseAuth.addAuthStateListener(authStateListener);
     }
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        firebaseAuth.removeAuthStateListener(authStateListener);
+    }
+    private void onSignedInInitialize(String user){
+        name=user;
+    }
+    private void onSignedOutCleanup(){
+        name=NULL;
+    }
 }

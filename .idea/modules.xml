@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Firebase-ChatApp-RealtimeDatabase-master.iml" filepath="$PROJECT_DIR$/Firebase-ChatApp-RealtimeDatabase-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/Firebase-RealtimeDatabase-App-Example-master.iml" filepath="$PROJECT_DIR$/Firebase-RealtimeDatabase-App-Example-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -46,6 +46,50 @@
       },
       "oauth_client": [
         {
+          "client_id": "294968808371-vp502ald18sj85giqot6baso2i6kq92o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.real_time_chat",
+            "certificate_hash": "6500eefb9b2043f561bbb320204b923abfda3909"
+          }
+        },
+        {
+          "client_id": "294968808371-oki8eo4pd81qjlt3okrrr4tfovj9v9up.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_sFDCdxWHEof3yo3xpXgSNbAZFxNWiQE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "294968808371-oki8eo4pd81qjlt3okrrr4tfovj9v9up.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294968808371:android:cb56a7d056ba4167",
+        "android_client_info": {
+          "package_name": "alessandro.firebaseandroid"
+        }
+      },
+      "oauth_client": [
+        {
           "client_id": "294968808371-oki8eo4pd81qjlt3okrrr4tfovj9v9up.apps.googleusercontent.com",
           "client_type": 3
         }
