@@ -3,7 +3,9 @@ package app.real_time_chat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,6 +37,7 @@ import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.N
 public class MainActivity extends AppCompatActivity {
 
     public static final int RC_SIGN_IN=1;
+    private Toolbar toolbar;
     private static final String ANONYMOUS = "";
     private Button  add_room;
     private EditText room_name;
@@ -44,18 +47,47 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> list_of_rooms = new ArrayList<>();
+    private int c=0;
     private String name;
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference().getRoot();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toolbar=(Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
-        add_room = (Button) findViewById(R.id.btn_add_room);
         room_name = (EditText) findViewById(R.id.room_name_edittext);
+        room_name.setText("");
+        room_name.setVisibility(View.GONE);
         listView = (ListView) findViewById(R.id.listView);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.fab);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (c==0) {
+                    room_name.setVisibility(View.VISIBLE);
+                    Toast.makeText(MainActivity.this,"Enter a room name", Toast.LENGTH_SHORT).show();
+                }
+                else if (!(room_name.getText().toString().equals(""))&&c==1) {
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put(room_name.getText().toString(), "");
+                    root.updateChildren(map);
+                    room_name.setText("");
+                    room_name.setVisibility(View.GONE);
+                }
+                else{
+                    Toast.makeText(MainActivity.this,"Enter a valid room name", Toast.LENGTH_SHORT).show();
+                    room_name.setVisibility(View.GONE);
+                }
+                c=(c+1)%2;
+            }
+        });
+
 
         arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list_of_rooms);
 
@@ -63,16 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
         //request_user_name();
 
-        add_room.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Map<String,Object> map = new HashMap<String, Object>();
-                map.put(room_name.getText().toString(),"");
-                root.updateChildren(map);
-
-            }
-        });
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -114,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // already signed in
-                    Toast.makeText(MainActivity.this,user.getDisplayName().toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,user.getDisplayName().toString()+" IS LOGGED IN",Toast.LENGTH_SHORT).show();
                     onSignedInInitialize(user.getDisplayName());
                 } else {
                     // not signed in
@@ -177,4 +199,5 @@ public class MainActivity extends AppCompatActivity {
     private void onSignedOutCleanup(){
         name=NULL;
     }
+    
 }
