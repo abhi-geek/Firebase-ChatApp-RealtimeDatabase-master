@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -201,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
     private void onSignedOutCleanup(){
         name=NULL;
     }
-<<<<<<< HEAD
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -210,7 +210,4 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-=======
-    
->>>>>>> parent of 1a21013... App bar made more efficient
 }
