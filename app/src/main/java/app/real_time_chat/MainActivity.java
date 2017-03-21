@@ -194,15 +194,12 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         firebaseAuth.removeAuthStateListener(authStateListener);
     }
-
     private void onSignedInInitialize(String user){
         name=user;
     }
-
     private void onSignedOutCleanup(){
         name=NULL;
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
