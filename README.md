@@ -27,7 +27,7 @@ compile 'com.google.firebase:firebase-storage:10.2.1'
 
 MIT License
 
-Copyright (c) [year] [fullname]
+Copyright (c) 2017 Shaun Sebi Kollannur, Dhruva Gaidhani and Abhishek Kateliya
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
