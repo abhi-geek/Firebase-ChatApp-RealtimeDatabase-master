@@ -21,6 +21,7 @@ import java.util.Map;
 /**
  * Created by filipp on 6/28/2016.
  */
+//chat class for the chat room
 public class Chat_Room  extends AppCompatActivity{
 
     private Button btn_send_msg;
